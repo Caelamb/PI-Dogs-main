@@ -71,12 +71,12 @@ const getAllDogs = async () => {
   const getDogsByName = async (searchName) => {
     try {
       const lowercaseName = searchName.toLowerCase();
-
+  
       // Buscar en la base de datos
       const dbDogs = await Dogs.findAll({
         where: {
           name: {
-            [Op.iLike]: `%${lowercaseName}`,
+            [Op.iLike]: `%${lowercaseName}%`,
           },
         },
         include: [
@@ -87,30 +87,53 @@ const getAllDogs = async () => {
           },
         ],
       });
-
-      // Realizar una solicitud a la API 
-      const response = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${lowercaseName}&api_key=${API_KEY}`)
+  
+      // Realizar una solicitud a la API
+      const response = await axios.get(
+        `https://api.thedogapi.com/v1/breeds/search?q=${lowercaseName}&api_key=${API_KEY}`
+      );
       const apiDogs = response.data;
-
+  
+      // Formatear los resultados de la API para que coincidan con el formato de la base de datos
+   const formattedApiDogs = apiDogs.map((dog) => {
+  const temperaments = dog.temperament ? dog.temperament.split(",") : [];
+  const formattedTemperaments = temperaments.map((temperament) => ({ name: temperament.trim() }));
+  return {
+    id: dog.id,
+    image: dog.image && dog.image.url ? dog.image.url : "", // Agregar el campo de imagen
+    name: dog.name,
+    height: dog.height.metric || "",
+    weight: dog.weight.metric || "",
+    life_span: dog.life_span,
+    temperaments: formattedTemperaments.map((temperament) => temperament.name).join(", "),
+  };
+});
+      // Formatear los resultados de la base de datos para que los temperamentos sean una cadena de texto
+      const formattedDbDogs = dbDogs.map((dog) => {
+        const temperaments = dog.Temperaments.map((temperament) => ({ name: temperament.name }));
+        const formattedTemperaments = temperaments.map((temperament) => temperament.name.trim());
+        return {
+          id: dog.id,
+          image: dog.image,
+          name: dog.name,
+          height: dog.height,
+          weight: dog.weight,
+          life_span: dog.life_span,
+          temperaments: formattedTemperaments.join(", "),
+        };
+      });
+  
       // Combinar los resultados de la base de datos y la API eliminando duplicados
-      const dogsSet = new Set([...dbDogs, ...apiDogs]);
-      const dogs = Array.from(dogsSet) 
-
-    // Generar cadena de texto con los temperamentos
-    const dogsWithTemperaments = dogs.map((dog) => {
-      const temperaments =  dog.Temperaments ? dog.Temperaments.map((temperament) => temperament.name) : [];
-      const dogWithTemperaments = {
-        id: dog.id,
-        name: dog.name,
-        height: dog.height,
-        weight: dog.weight,
-        life_span: dog.life_span,
-        temperaments: temperaments.join(", "),
-      };
-      return dogWithTemperaments;
-    });
-
-    return dogsWithTemperaments;
+      const combinedDogs = [...formattedDbDogs, ...formattedApiDogs];
+      const uniqueDogs = combinedDogs.reduce((acc, dog) => {
+        const existingDog = acc.find((d) => d.id === dog.id);
+        if (!existingDog) {
+          acc.push(dog);
+        }
+        return acc;
+      }, []);
+  
+      return uniqueDogs;
     } catch (error) {
       console.error(error);
       throw new Error("Error en el servidor");
