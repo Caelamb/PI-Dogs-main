@@ -1,11 +1,54 @@
-import React from 'react'
+import React from 'react';
+import styles from '../pagination/pagination.module.css';
 
-const Pagination = () => {
+const Pagination = ({ onPageChange, currentPage, totalPages }) => {
+  const handlePreviousPage = () => {
+    onPageChange(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    onPageChange(currentPage + 1);
+  };
+
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <li
+          key={i}
+          className={`${styles.pageItem} ${i === currentPage ? styles.active : ''}`}
+        >
+          <button className="page-link" onClick={() => onPageChange(i)}>
+            {i}
+          </button>
+        </li>
+      );
+    }
+    return pageNumbers;
+  };
+
   return (
-    <div>
-      soy la pagination
-    </div>
-  )
-}
+    <nav>
+      <ul className={`pagination justify-content-center ${styles.pagination}`}>
+        <li className={`${styles.pageItem} ${currentPage === 1 ? styles.disabled : ''}`}>
+          <button className="page-link" onClick={handlePreviousPage}>
+            Previous
+          </button>
+        </li>
+        {renderPageNumbers()}
+        <li
+          className={`${styles.pageItem} ${
+            currentPage === totalPages ? styles.disabled : ''
+          }`}
+        >
+          <button className="page-link" onClick={handleNextPage}>
+            Next
+          </button>
+        </li>
+      </ul>
+    </nav>
+  );
+};
 
-export default Pagination
+export default Pagination;
+

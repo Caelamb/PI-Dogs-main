@@ -17,7 +17,7 @@ import Navbar from '../../components/navbar/Navbar.jsx';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const dogs = useSelector((state) => state.copyDogs);
+  const dogs = useSelector((state) => state.dogs);
   const currentPage = useSelector((state) => state.currentPage);
 
   useEffect(() => {
