@@ -90,28 +90,37 @@ const getAllDogs = async () => {
   
       // Realizar una solicitud a la API
       const response = await axios.get(
-        `https://api.thedogapi.com/v1/breeds/search?q=${lowercaseName}&api_key=${API_KEY}`
+        `https://api.thedogapi.com/v1/breeds?name=${lowercaseName}&api_key=${API_KEY}`
       );
       const apiDogs = response.data;
   
       // Formatear los resultados de la API para que coincidan con el formato de la base de datos
-   const formattedApiDogs = apiDogs.map((dog) => {
-  const temperaments = dog.temperament ? dog.temperament.split(",") : [];
-  const formattedTemperaments = temperaments.map((temperament) => ({ name: temperament.trim() }));
-  return {
-    id: dog.id,
-    image: dog.image && dog.image.url ? dog.image.url : "", // Agregar el campo de imagen
-    name: dog.name,
-    height: dog.height.metric || "",
-    weight: dog.weight.metric || "",
-    life_span: dog.life_span,
-    temperaments: formattedTemperaments.map((temperament) => temperament.name).join(", "),
-  };
-});
+      const formattedApiDogs = apiDogs.map((dog) => {
+        const temperaments = dog.temperament ? dog.temperament.split(",") : [];
+        const formattedTemperaments = temperaments.map((temperament) => ({
+          name: temperament.trim(),
+        }));
+        return {
+          id: dog.id,
+          image: dog.image && dog.image.url ? dog.image.url : "", // Agregar el campo de imagen
+          name: dog.name,
+          height: dog.height.metric || "",
+          weight: dog.weight.metric || "",
+          life_span: dog.life_span,
+          temperaments: formattedTemperaments
+            .map((temperament) => temperament.name)
+            .join(", "),
+        };
+      });
+  
       // Formatear los resultados de la base de datos para que los temperamentos sean una cadena de texto
       const formattedDbDogs = dbDogs.map((dog) => {
-        const temperaments = dog.Temperaments.map((temperament) => ({ name: temperament.name }));
-        const formattedTemperaments = temperaments.map((temperament) => temperament.name.trim());
+        const temperaments = dog.Temperaments.map((temperament) => ({
+          name: temperament.name,
+        }));
+        const formattedTemperaments = temperaments
+          .map((temperament) => temperament.name.trim())
+          .join(", ");
         return {
           id: dog.id,
           image: dog.image,
@@ -119,26 +128,29 @@ const getAllDogs = async () => {
           height: dog.height,
           weight: dog.weight,
           life_span: dog.life_span,
-          temperaments: formattedTemperaments.join(", "),
+          temperaments: formattedTemperaments,
         };
       });
   
-      // Combinar los resultados de la base de datos y la API eliminando duplicados
-      const combinedDogs = [...formattedDbDogs, ...formattedApiDogs];
-      const uniqueDogs = combinedDogs.reduce((acc, dog) => {
-        const existingDog = acc.find((d) => d.id === dog.id);
-        if (!existingDog) {
-          acc.push(dog);
-        }
-        return acc;
-      }, []);
+      // Combinar y eliminar duplicados
+      const allDogs = [...formattedDbDogs, ...formattedApiDogs];
+      const uniqueDogs = allDogs.filter(
+        (dog, index, self) =>
+          index === self.findIndex((d) => d.id === dog.id)
+      );
   
-      return uniqueDogs;
+      // Filtrar los resultados por nombre
+      const filteredDogs = uniqueDogs.filter((dog) =>
+        dog.name.toLowerCase().includes(lowercaseName)
+      );
+  
+      return filteredDogs;
     } catch (error) {
       console.error(error);
       throw new Error("Error en el servidor");
     }
   };
+  
   
   const createDog = async (image, name, height, weight, life_span, temperaments) => {
     try {
@@ -199,4 +211,4 @@ const getAllDogs = async () => {
     getDogsByName,
     createDog,
 };
-  
+
