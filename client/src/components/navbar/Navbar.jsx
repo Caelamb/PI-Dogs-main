@@ -20,9 +20,9 @@ const Navbar = ({ onSearch }) => {
            onChange={(event) => setSearchTerm(event.target.value)}/>
         <button type='submit' >Search</button>
       </form>
-      <Link to="/form" className={styles.button}>Create videogame</Link>
+      <Link to="/form" className={styles.button}>Create Dogs</Link>
     </div>
   )
 }
 
-export default Navbar
+export default Navbar;

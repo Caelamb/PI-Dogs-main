@@ -40,6 +40,7 @@ import {
         return {
           ...state,
           dogs: action.payload,
+          currentPage: 1
         };
   
       case FETCH_DOG_BY_ID_SUCCESS:
