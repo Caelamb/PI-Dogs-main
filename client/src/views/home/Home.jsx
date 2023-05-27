@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   fetchAllDogs,
   searchDogByName,
+  fetchAllTemperaments,
   filterDogsByTemperament,
   filterDogsByOrigin,
   sortDogsByAlphabet,
@@ -18,10 +19,12 @@ import Navbar from '../../components/navbar/Navbar.jsx';
 const Home = () => {
   const dispatch = useDispatch();
   const dogs = useSelector((state) => state.dogs);
+  const temperaments = useSelector((state) => state.temperaments)
   const currentPage = useSelector((state) => state.currentPage);
 
   useEffect(() => {
     dispatch(fetchAllDogs());
+    dispatch(fetchAllTemperaments());
   }, [dispatch]);
 
   const handleSearch = (name) => {
@@ -49,7 +52,7 @@ const Home = () => {
   };
 
     // Lógica de paginación y límite de perros por página
-    const itemsPerPage = 15;
+    const itemsPerPage = 8;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const displayedDogs = dogs.slice(startIndex, endIndex);
@@ -62,6 +65,7 @@ const Home = () => {
         onFilterByOrigin={handleFilterByOrigin}
         onSortByAlphabet={handleSortByAlphabet}
         onSortByWeight={handleSortByWeight}
+        temperaments={temperaments}
       />
       <Pagination
         onPageChange={handlePageChange}
