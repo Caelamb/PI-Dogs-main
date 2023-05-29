@@ -49,9 +49,7 @@ const dogReducer = (state = initialState, action) => {
 
     case CREATE_DOG_SUCCESS:
       return {
-        ...state,
-        dogs: [...state.dogs, action.payload],
-        copyDogs: [...state.copyDogs, action.payload],
+        ...state
       };
 
     case FILTER_DOGS_BY_TEMPERAMENT:
