@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createDog, fetchAllTemperaments } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
-import styles from "./form.module.css";
+import styles from "../form/form.module.css";
 
 const Form = () => {
   const dispatch = useDispatch();
@@ -64,20 +64,33 @@ const Form = () => {
 
     return Object.keys(errors).length === 0;
   };
-
+  
   const handleInputChange = (event) => {
     const { name, value, options } = event.target;
-
+  
     if (name === "temperaments") {
       const selectedOptions = Array.from(options)
         .filter((option) => option.selected)
         .map((option) => option.value);
-
+  
       setFormValues({ ...formValues, [name]: selectedOptions });
+    } else if (name === "weight_min") {
+      const newValue = Math.min(Math.max(parseInt(value), 1), 80);
+      setFormValues({ ...formValues, [name]: newValue });
+    } else if (name === "weight_max") {
+      const newValue = Math.min(Math.max(parseInt(value), formValues.weight_min), 80);
+      setFormValues({ ...formValues, [name]: newValue });
+    } else if (name === "height_min") {
+      const newValue = Math.min(Math.max(parseInt(value), 1), 80);
+      setFormValues({ ...formValues, [name]: newValue });
+    } else if (name === "height_max") {
+      const newValue = Math.min(Math.max(parseInt(value), formValues.height_min), 90);
+      setFormValues({ ...formValues, [name]: newValue });
     } else {
       setFormValues({ ...formValues, [name]: value });
     }
   };
+  
   
 
   const handleSubmit = (event) => {
