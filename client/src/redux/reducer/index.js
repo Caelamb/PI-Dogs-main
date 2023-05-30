@@ -73,14 +73,23 @@ const dogReducer = (state = initialState, action) => {
       };
 
     case FILTER_DOGS_BY_ORIGIN:
+      const origin = action.payload;
+      let filteredDogs;
+    
+      if (origin === 'created') {
+        filteredDogs = state.copyDogs.filter((dog) => dog.id >= 265);
+      } else if (origin === 'api') {
+        filteredDogs = state.copyDogs.filter((dog) => dog.id < 265);
+      } else {
+        filteredDogs = state.copyDogs; // Utilizar la lista original en lugar de una nueva propiedad
+      }
+    
       return {
         ...state,
-        filters: {
-          ...state.filters,
-          origin: action.payload,
-        },
+        dogs: filteredDogs, // Actualizar la lista de perros en lugar de filteredDogs
+        currentPage: 1,
       };
-
+      
     case SORT_DOGS_BY_ALPHABET:
       const alphabetOrder = action.payload;
       let sortedByAlphabet;

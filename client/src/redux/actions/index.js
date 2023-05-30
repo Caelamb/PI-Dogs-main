@@ -108,11 +108,11 @@ export const searchDogByName = (name) => {
   
 // Acción para filtrar por origen (API o base de datos)
 export const filterDogsByOrigin = (origin) => {
-    return {
-      type: FILTER_DOGS_BY_ORIGIN,
-      payload: origin,
-    };
+  return {
+    type: FILTER_DOGS_BY_ORIGIN,
+    payload: origin,
   };
+};
 
 
   // Acción para ordenar las razas de perros por orden alfabético

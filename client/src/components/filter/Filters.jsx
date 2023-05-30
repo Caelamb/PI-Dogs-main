@@ -46,7 +46,8 @@ const Filters = ({
         <label htmlFor="originFilter">Origin:</label>
         <select id="originFilter" onChange={handleOriginChange}>
           <option value="">All</option>
-          {/* Renderizar opciones de origen */}
+          <option value="api">API</option>
+          <option value="created">Created</option>
         </select>
       </div>
       <div>
