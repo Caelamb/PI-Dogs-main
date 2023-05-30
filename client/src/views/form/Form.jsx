@@ -10,8 +10,10 @@ const Form = () => {
 
   const [formValues, setFormValues] = useState({
     name: "",
-    height: "",
-    weight: "",
+    height_min: "",
+    height_max: "",
+    weight_min: "",
+    weight_max: "",
     life_span: "",
     temperaments: [],
     image: "",
@@ -30,12 +32,20 @@ const Form = () => {
       errors.name = "Ingrese un nombre válido";
     }
 
-    if (formValues.height === "") {
-      errors.height = "Ingrese una altura válida";
+    if (formValues.height_min === "") {
+      errors.height_min = "Ingrese una altura mínima válida";
     }
 
-    if (formValues.weight === "") {
-      errors.weight = "Ingrese un peso válido";
+    if (formValues.height_max === "") {
+      errors.height_max = "Ingrese una altura máxima válida";
+    }
+
+    if (formValues.weight_min === "" || formValues.weight_min < 1) {
+      errors.weight_min = "Ingrese un peso mínimo válido (mínimo 1)";
+    }
+  
+    if (formValues.weight_max === "" || formValues.weight_max > 80) {
+      errors.weight_max = "Ingrese un peso máximo válido (máximo 80)";
     }
 
     if (formValues.life_span === "") {
@@ -75,17 +85,30 @@ const Form = () => {
   
     if (validateForm()) {
       const selectedTemperaments = formValues.temperaments.join(", ");
+      const height = `${formValues.height_min} - ${formValues.height_max}`;
+      const weight = `${formValues.weight_min} - ${formValues.weight_max}`;
+  
       const adjustedFormValues = {
         ...formValues,
-        temperaments: selectedTemperaments
+        temperaments: selectedTemperaments,
+        height: height,
+        weight: weight,
       };
   
-      dispatch(createDog(adjustedFormValues));
+      if (formValues.weight_min >= 1 && formValues.weight_max <= 80) {
+        dispatch(createDog(adjustedFormValues));
+      } else {
+        // Mostrar mensaje de error indicando que los valores de peso son inválidos
+        // o realizar alguna otra acción correspondiente
+        console.log("Los valores de peso son inválidos");
+      }
   
       setFormValues({
         name: "",
-        height: "",
-        weight: "",
+        height_min: "",
+        height_max: "",
+        weight_min: "",
+        weight_max: "",
         life_span: "",
         image: "",
         temperaments: [],
@@ -124,28 +147,54 @@ const Form = () => {
           {errors.name && <span className={styles.error}>{errors.name}</span>}
         </div>
         <div>
-          <label htmlFor="height">Altura:</label>
+          <label htmlFor="height_min">Altura mínima:</label>
           <input
-            type="text"
-            id="height"
-            name="height"
-            value={formValues.height}
+            type="number"
+            id="height_min"
+            name="height_min"
+            value={formValues.height_min}
             onChange={handleInputChange}
             required
           />
-          {errors.height && <span className={styles.error}>{errors.height}</span>}
+          {errors.height_min && <span className={styles.error}>{errors.height_min}</span>}
         </div>
         <div>
-          <label htmlFor="weight">Peso:</label>
+          <label htmlFor="height_max">Altura máxima:</label>
           <input
-            type="text"
-            id="weight"
-            name="weight"
-            value={formValues.weight}
+            type="number"
+            id="height_max"
+            name="height_max"
+            value={formValues.height_max}
             onChange={handleInputChange}
             required
           />
-          {errors.weight && <span className={styles.error}>{errors.weight}</span>}
+          {errors.height_max && <span className={styles.error}>{errors.height_max}</span>}
+        </div>
+        <div>
+          <label htmlFor="weight_min">Peso mínimo:</label>
+          <input
+            type="number"
+            id="weight_min"
+            name="weight_min"
+            value={formValues.weight_min}
+            onChange={handleInputChange}
+            required
+            min="1"
+          />
+          {errors.weight_min && <span className={styles.error}>{errors.weight_min}</span>}
+        </div>
+        <div>
+          <label htmlFor="weight_max">Peso máximo:</label>
+          <input
+            type="number"
+            id="weight_max"
+            name="weight_max"
+            value={formValues.weight_max}
+            onChange={handleInputChange}
+            required
+            max="80"
+          />
+          {errors.weight_max && <span className={styles.error}>{errors.weight_max}</span>}
         </div>
         <div>
           <label htmlFor="life_span">Años de Vida:</label>
