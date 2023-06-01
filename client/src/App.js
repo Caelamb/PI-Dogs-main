@@ -24,10 +24,10 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" >
       <Routes>
         <Route exact path='/' element={content} />
-        <Route exact path='/home' element={<Home />} />
+        <Route exact path='/home' element={ <div  className="App-Home"> <Home /></div>} />
         <Route exact path='/detail/:id' element={<Detail />} />
         <Route exact path='/form' element={<Form />} />
       </Routes>

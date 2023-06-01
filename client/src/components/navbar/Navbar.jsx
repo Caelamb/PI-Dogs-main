@@ -14,7 +14,8 @@ const Navbar = ({ onSearch }) => {
   return (
     <div className={styles.navbar}>
       <form onSubmit={handleSumit}>
-        <input 
+        <input
+           className={styles.searchInput}
            placeholder='Search...'
            value={searchTerm}
            onChange={(event) => setSearchTerm(event.target.value)}/>

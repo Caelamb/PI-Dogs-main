@@ -2,10 +2,10 @@
 
 .container {
   background-color: #000000;
-  background-image: url("https://img.freepik.com/vector-premium/banner-inconvenientes-patas-perro-diseno-lindo-e-infantil-tela-textil-papel-pintado-ropa-cama_197792-2421.jpg");
+  background-image: url("../../assets/shiba-durmiendo-en-habitacion-navidena_3840x2160_xtrafondos.com.jpg");
   background-size: cover;
-  background-position: center;
-  height: 94vh; /* Ajusta la altura según tus necesidades */
+  background-position: center center;
+  height: 710px; /* Ajusta la altura según tus necesidades */
   display: flex;
   justify-content: center;
   align-items: center;

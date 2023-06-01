@@ -31,7 +31,7 @@ const Filters = ({
   };
 
   return (
-    <div className={styles['filters-container']}>
+    <div className={`${styles['filters-container']}`}>
       <div className={styles['filters-item']}>
         <label className={styles['label']} htmlFor="temperamentFilter">Temperament:</label>
         <select className={styles['select']} id="temperamentFilter" onChange={handleTemperamentChange}>

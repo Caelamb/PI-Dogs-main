@@ -2,9 +2,9 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-Home {
+  background-image: url("../src/assets/seamless-dog-pattern-with-paw-prints-bones-hearts-and-balls-cat-foot-texture-pattern-with-doggy-pawprint-and-bones-dog-texture-hand-drawn-illustration-in-doodle-style-on-white-background-vector.jpg");
+  height: 1460px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

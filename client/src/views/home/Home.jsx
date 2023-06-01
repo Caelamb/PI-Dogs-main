@@ -66,7 +66,7 @@ const Home = () => {
         onSortByAlphabet={handleSortByAlphabet}
         onSortByWeight={handleSortByWeight}
         temperaments={temperaments}
-      />
+        />
       <Pagination
         onPageChange={handlePageChange}
         currentPage={currentPage}
