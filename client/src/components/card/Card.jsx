@@ -7,7 +7,6 @@ const Card = ({ dog }) => {
 
   return (
     <div className={styles.card}>
-      <Link to={`/detail/${dog.id}`}>
       <img src={image} alt={name} className={styles['card-image']} />
       <div className={styles['card-details']}>
         <h2 className={styles['card-name']}>{name}</h2>
@@ -16,6 +15,8 @@ const Card = ({ dog }) => {
         </p>
         <p className={styles['card-weight']}>Weight: {weight}</p>
       </div>
+      <Link to={`/detail/${dog.id}`} className={styles.button}>
+        Detail
       </Link>
     </div>
   );

@@ -1,7 +1,35 @@
 .container {
     margin: 20px;
   }
-  
+
+  .image {
+    max-width: 400px;
+    height: auto;
+  }
+
+  .name {
+    
+    font-family: "Kalam", cursive;
+    font-weight: normal;
+    font-size: 1rem;
+    color: #4a4a7d;
+    text-align: center;
+  }
+
+  .Alls {
+    font-family: "Kalam", cursive;
+    font-size: 1rem;
+    color: #5e5e89;
+    text-align: center;
+  }
+
+  .All {
+    font-family: "Kalam", cursive;
+    font-size: 1rem;
+    color: #5e5e89;
+    text-align: center;
+  }
+
   .button {
     display: inline-block;
     padding: 10px 20px;

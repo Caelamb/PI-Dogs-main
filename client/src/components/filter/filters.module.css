@@ -1,0 +1,23 @@
+.filters-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .filter-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  
+  .select {
+    padding: 5px;
+    border-radius: 5px;
+  }
+  

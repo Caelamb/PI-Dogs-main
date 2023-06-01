@@ -1,6 +1,7 @@
 // En el componente Filters.jsx
 
 import React from 'react';
+import styles from "../filter/filters.module.css";
 
 const Filters = ({
   onFilterByTemperament,
@@ -30,10 +31,10 @@ const Filters = ({
   };
 
   return (
-    <div>
-      <div>
-        <label htmlFor="temperamentFilter">Temperament:</label>
-        <select id="temperamentFilter" onChange={handleTemperamentChange}>
+    <div className={styles['filters-container']}>
+      <div className={styles['filters-item']}>
+        <label className={styles['label']} htmlFor="temperamentFilter">Temperament:</label>
+        <select className={styles['select']} id="temperamentFilter" onChange={handleTemperamentChange}>
           <option value="">All</option>
           {temperaments.map((temperament) => (
             <option key={temperament.id} value={temperament.name}>
@@ -43,24 +44,24 @@ const Filters = ({
         </select>
       </div>
       <div>
-        <label htmlFor="originFilter">Origin:</label>
-        <select id="originFilter" onChange={handleOriginChange}>
+        <label className={styles['label']} htmlFor="originFilter">Origin:</label>
+        <select className={styles['select']} id="originFilter" onChange={handleOriginChange}>
           <option value="">All</option>
           <option value="api">API</option>
           <option value="created">Created</option>
         </select>
       </div>
       <div>
-        <label htmlFor="alphabetSort">Alphabetical Sort:</label>
-        <select id="alphabetSort" onChange={handleAlphabetSortChange}>
+        <label className={styles['label']} htmlFor="alphabetSort">Alphabetical Sort:</label>
+        <select className={styles['select']} id="alphabetSort" onChange={handleAlphabetSortChange}>
           <option value="">None</option>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>
       </div>
       <div>
-        <label htmlFor="weightSort">Weight Sort:</label>
-        <select id="weightSort" onChange={handleWeightSortChange}>
+        <label className={styles['label']} htmlFor="weightSort">Weight Sort:</label>
+        <select className={styles['select']} id="weightSort" onChange={handleWeightSortChange}>
           <option value="">None</option>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>

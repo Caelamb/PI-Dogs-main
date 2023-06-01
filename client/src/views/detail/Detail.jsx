@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDogById } from "../../redux/actions/index";
 import { useParams, Link } from "react-router-dom";
-import styles from "./detail.module.css";
+import styles from "../detail/detail.module.css";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -28,15 +28,14 @@ const Detail = () => {
 
   return (
     <div className={styles.container}>
-      <h2>DETAIL PAGE</h2>
       <div>
-        <p>ID: {id}</p>
-        <img src={image} alt={name} />
-        <p>Nombre: {name}</p>
-        <p>Altura: {height}</p>
-        <p>Peso: {weight}</p>
-        <p>Temperamentos: {temperaments}</p>
-        <p>Años de vida: {life_span}</p>
+        <img className={styles.image} src={image} alt={name} />
+        <p className={styles.Alls}>ID: {id}</p>
+        <p className={styles.name}>Nombre: {name}</p>
+        <p className={styles.All}>Altura: {height}</p>
+        <p className={styles.All}>Peso: {weight}</p>
+        <p className={styles.All}>Temperamentos: {temperaments}</p>
+        <p className={styles.All}>Años de vida: {life_span}</p>
       </div>
       <Link to="/home" className={styles.button}>
         Volver a la página principal
