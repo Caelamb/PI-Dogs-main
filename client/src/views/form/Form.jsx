@@ -252,7 +252,7 @@ const Form = () => {
           </select>
           {errors.temperaments && <span className={styles.error}>{errors.temperaments}</span>}
         </div>
-        <button type="submit">Crear raza</button>
+        <button className={styles.button} type="submit">Crear raza</button>
         <Link to="/home" className={styles.button}>Volver a la página principal</Link>
       </form>
     </div>

@@ -28,8 +28,8 @@ function App() {
       <Routes>
         <Route exact path='/' element={content} />
         <Route exact path='/home' element={ <div  className="App-Home"> <Home /></div>} />
-        <Route exact path='/detail/:id' element={<Detail />} />
-        <Route exact path='/form' element={<Form />} />
+        <Route exact path='/detail/:id' element={ <div  className="App-Detail"><Detail /></div>} />
+        <Route exact path='/form' element={ <div  className="App-Form"><Form /></div>} />
       </Routes>
     </div>
   );

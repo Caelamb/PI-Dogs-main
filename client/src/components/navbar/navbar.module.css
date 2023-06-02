@@ -26,15 +26,29 @@
     border-radius: 20px;
     top: -22px;
     background-color: brown;
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+  }
+
+  .searchButton:hover {
+    background-color: #965520;
+  }
+  
+  .searchButton:active {
+    background-color: #965520;
   }
 
   .button {
-    padding: 8px 16px;
+    padding: 10px 20px;
     background-color: brown;
     color: white;
     text-decoration: none;
     border-radius: 30px;
-    border: none;
+    border: 1px solid black;;
     cursor: pointer;
   }
   
