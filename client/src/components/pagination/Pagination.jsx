@@ -18,7 +18,7 @@ const Pagination = ({ onPageChange, currentPage, totalPages }) => {
           key={i}
           className={`${styles.pageItem} ${i === currentPage ? styles.active : ''}`}
         >
-          <button className="page-link" onClick={() => onPageChange(i)}>
+          <button className="page-link" onClick={() => onPageChange(i)}  style={{ backgroundColor: 'brown', color: 'white' }}>
             {i}
           </button>
         </li>
@@ -31,7 +31,7 @@ const Pagination = ({ onPageChange, currentPage, totalPages }) => {
     <nav>
       <ul className={`pagination justify-content-center ${styles.pagination}`}>
         <li className={`${styles.pageItem} ${currentPage === 1 ? styles.disabled : ''}`}>
-          <button className="page-link" onClick={handlePreviousPage}>
+          <button className="page-link" onClick={handlePreviousPage} style={{ backgroundColor: 'brown', color: 'white' }}>
             Previous
           </button>
         </li>
@@ -41,7 +41,7 @@ const Pagination = ({ onPageChange, currentPage, totalPages }) => {
             currentPage === totalPages ? styles.disabled : ''
           }`}
         >
-          <button className="page-link" onClick={handleNextPage}>
+          <button className="page-link" onClick={handleNextPage} style={{ backgroundColor: 'brown', color: 'white' }}>
             Next
           </button>
         </li>
@@ -51,4 +51,3 @@ const Pagination = ({ onPageChange, currentPage, totalPages }) => {
 };
 
 export default Pagination;
-

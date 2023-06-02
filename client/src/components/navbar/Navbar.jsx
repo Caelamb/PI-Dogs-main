@@ -19,7 +19,7 @@ const Navbar = ({ onSearch }) => {
            placeholder='Search...'
            value={searchTerm}
            onChange={(event) => setSearchTerm(event.target.value)}/>
-        <button type='submit' >Search</button>
+        <button className={styles.searchButton} type='submit' >Search</button>
       </form>
       <Link to="/form" className={styles.button}>Create Dogs</Link>
     </div>
