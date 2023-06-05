@@ -24,22 +24,16 @@ const getDogByIdHandler = async (req, res) => {
   };
 
   const getDogsByNameAndAllHandler = async (req, res) => {
+    const { name } = req.query;
     try {
-      const { name } = req.query;
-  
-      if (!name) {
-        const dogs = await getAllDogs(); // Obtener lista completa de razas de perros
-        return res.json(dogs);
-      }
-  
-      const dogs = await getDogsByName(name);
-  
-      if (dogs.length === 0) {
-        return res.status(404).json({ message: "No se encontraron razas de perros con ese nombre." });
-      }
-  
-      return res.json(dogs);
-    } catch (error) {
+      let dogs
+      if (name) {
+        dogs = await getDogsByName(name); // Obtener lista completa de razas de perros
+      } else {
+        dogs = await getAllDogs()
+        }
+        res.status(200).json(dogs);
+      } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error en el servidor" });
     }
