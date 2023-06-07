@@ -62,9 +62,9 @@ const Form = () => {
       }
     }
 
-    if (formValues.temperaments.length === 0) {
+    if (formValues.temperaments.length === 0 || formValues.temperaments.includes("")) {
       errors.temperaments = "Seleccione al menos un temperamento";
-    }
+    }   
 
     if (formValues.image === "" || !isValidUrl(formValues.image)) {
       errors.image = "Ingrese una URL válida para la imagen";
