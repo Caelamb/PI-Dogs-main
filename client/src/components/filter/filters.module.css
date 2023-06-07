@@ -4,6 +4,10 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    background-color: rgb(249, 246, 243);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    border: 1px solid black;
   }
   
   .filter-item {
@@ -14,6 +18,7 @@
   
   .label {
     font-weight: bold;
+    color: rgb(96, 58, 5);
   }
   
   .select {

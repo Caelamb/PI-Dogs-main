@@ -35,7 +35,7 @@ const Filters = ({
       <div className={styles['filters-item']}>
         <label className={styles['label']} htmlFor="temperamentFilter">Temperament:</label>
         <select className={styles['select']} id="temperamentFilter" onChange={handleTemperamentChange}>
-          <option value="">All</option>
+          <option value="">All dogs</option>
           {temperaments.map((temperament) => (
             <option key={temperament.id} value={temperament.name}>
               {temperament.name}
@@ -46,7 +46,7 @@ const Filters = ({
       <div>
         <label className={styles['label']} htmlFor="originFilter">Origin:</label>
         <select className={styles['select']} id="originFilter" onChange={handleOriginChange}>
-          <option value="">All</option>
+          <option value="">All dogs</option>
           <option value="api">API</option>
           <option value="created">Created</option>
         </select>
@@ -54,17 +54,17 @@ const Filters = ({
       <div>
         <label className={styles['label']} htmlFor="alphabetSort">Alphabetical Sort:</label>
         <select className={styles['select']} id="alphabetSort" onChange={handleAlphabetSortChange}>
-          <option value="">None</option>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+          <option value="">All dogs</option>
+          <option value="asc">A-Z</option>
+          <option value="desc">Z-A</option>
         </select>
       </div>
       <div>
         <label className={styles['label']} htmlFor="weightSort">Weight Sort:</label>
         <select className={styles['select']} id="weightSort" onChange={handleWeightSortChange}>
-          <option value="">None</option>
-          <option value="asc">Ascending</option>
-          <option value="desc">Descending</option>
+          <option value="">All dogs</option>
+          <option value="asc">Weight-min</option>
+          <option value="desc">Weight-max</option>
         </select>
       </div>
     </div>

@@ -25,18 +25,23 @@ const Form = () => {
     dispatch(fetchAllTemperaments());
   }, [dispatch]);
 
+  const isValidUrl = (url) => {
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlRegex.test(url);
+  };
+
   const validateForm = () => {
     let errors = {};
 
-    if (formValues.name === "" || /\d/.test(formValues.name)) {
-      errors.name = "Ingrese un nombre válido";
+    if (formValues.name === "" || !/^[a-zA-Z]+$/.test(formValues.name)) {
+      errors.name = "Ingrese un nombre válido (solo letras)";
     }
 
-    if (formValues.height_min === "") {
+    if (formValues.height_min === "" || formValues.height_min < 1) {
       errors.height_min = "Ingrese una altura mínima válida";
     }
 
-    if (formValues.height_max === "") {
+    if (formValues.height_max === "" || formValues.height_max >= 90) {
       errors.height_max = "Ingrese una altura máxima válida";
     }
 
@@ -44,20 +49,25 @@ const Form = () => {
       errors.weight_min = "Ingrese un peso mínimo válido (mínimo 1)";
     }
   
-    if (formValues.weight_max === "" || formValues.weight_max > 80) {
+    if (formValues.weight_max === "" || formValues.weight_max >= 80) {
       errors.weight_max = "Ingrese un peso máximo válido (máximo 80)";
     }
 
     if (formValues.life_span === "") {
       errors.life_span = "Ingrese una vida útil";
+    } else {
+      const lifeSpanRegex = /^(\d+(?:\s*-\s*\d+)?\s*years)$/i;
+      if (!lifeSpanRegex.test(formValues.life_span)) {
+        errors.life_span = "Ingrese una vida útil válida en el formato 'X - Y years' o 'Z years'";
+      }
     }
 
     if (formValues.temperaments.length === 0) {
       errors.temperaments = "Seleccione al menos un temperamento";
     }
 
-    if (formValues.image === "") {
-      errors.image = "Seleccione una imagen";
+    if (formValues.image === "" || !isValidUrl(formValues.image)) {
+      errors.image = "Ingrese una URL válida para la imagen";
     }
 
     setErrors(errors);
@@ -145,10 +155,10 @@ const Form = () => {
 
   return (
     <div className={styles.container}>
-      <h2>FORM PAGE</h2>
+      <h2>Dog breeder</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="name">Nombre:</label>
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
             id="name"
@@ -160,7 +170,7 @@ const Form = () => {
           {errors.name && <span className={styles.error}>{errors.name}</span>}
         </div>
         <div>
-          <label htmlFor="height_min">Altura mínima:</label>
+          <label htmlFor="height_min">Height-min:</label>
           <input
             type="number"
             id="height_min"
@@ -172,7 +182,7 @@ const Form = () => {
           {errors.height_min && <span className={styles.error}>{errors.height_min}</span>}
         </div>
         <div>
-          <label htmlFor="height_max">Altura máxima:</label>
+          <label htmlFor="height_max">Height-max:</label>
           <input
             type="number"
             id="height_max"
@@ -184,7 +194,7 @@ const Form = () => {
           {errors.height_max && <span className={styles.error}>{errors.height_max}</span>}
         </div>
         <div>
-          <label htmlFor="weight_min">Peso mínimo:</label>
+          <label htmlFor="weight_min">Weight-min:</label>
           <input
             type="number"
             id="weight_min"
@@ -197,7 +207,7 @@ const Form = () => {
           {errors.weight_min && <span className={styles.error}>{errors.weight_min}</span>}
         </div>
         <div>
-          <label htmlFor="weight_max">Peso máximo:</label>
+          <label htmlFor="weight_max">Weight-max:</label>
           <input
             type="number"
             id="weight_max"
@@ -210,7 +220,7 @@ const Form = () => {
           {errors.weight_max && <span className={styles.error}>{errors.weight_max}</span>}
         </div>
         <div>
-          <label htmlFor="life_span">Años de Vida:</label>
+          <label htmlFor="life_span">Life-span:</label>
           <input
             type="text"
             id="life_span"
@@ -222,7 +232,7 @@ const Form = () => {
           {errors.life_span && <span className={styles.error}>{errors.life_span}</span>}
         </div>
         <div>
-          <label htmlFor="image">Imagen:</label>
+          <label htmlFor="image">Image:</label>
           <input
             type="text"
             id="image"
@@ -234,7 +244,7 @@ const Form = () => {
           {errors.image && <span className={styles.error}>{errors.image}</span>}
         </div>
         <div>
-          <label htmlFor="temperaments">Temperamentos:</label>
+          <label htmlFor="temperaments">Temperaments:</label>
           <select
             id="temperaments"
             name="temperaments"
@@ -243,7 +253,7 @@ const Form = () => {
             onChange={handleOptionClick}
             required
           >
-            <option value="">Seleccione temperamentos</option>
+            <option value="">Select temperaments</option>
             {temperaments.map((temperament) => (
               <option key={temperament.id} value={temperament.name}>
                 {temperament.name}
@@ -252,8 +262,8 @@ const Form = () => {
           </select>
           {errors.temperaments && <span className={styles.error}>{errors.temperaments}</span>}
         </div>
-        <button className={styles.button} type="submit">Crear raza</button>
-        <Link to="/home" className={styles.button}>Volver a la página principal</Link>
+        <button className={styles.button} type="submit">Create breed</button>
+        <Link to="/home" className={styles.button}>Return to the main page</Link>
       </form>
     </div>
   );

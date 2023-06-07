@@ -31,14 +31,14 @@ const Detail = () => {
       <div>
         <img className={styles.image} src={image} alt={name} />
         <p className={styles.Alls}>ID: {id}</p>
-        <p className={styles.name}>Nombre: {name}</p>
-        <p className={styles.All}>Altura: {height}</p>
-        <p className={styles.All}>Peso: {weight}</p>
-        <p className={styles.All}>Temperamentos: {temperaments}</p>
-        <p className={styles.All}>Años de vida: {life_span}</p>
+        <p className={styles.name}>Name: {name}</p>
+        <p className={styles.All}>Height: {height}</p>
+        <p className={styles.All}>Weight: {weight}</p>
+        <p className={styles.All}>Temperaments: {temperaments}</p>
+        <p className={styles.All}>Life span: {life_span}</p>
       </div>
       <Link to="/home" className={styles.button}>
-        Volver a la página principal
+        Return to the main page
       </Link>
     </div>
   );
